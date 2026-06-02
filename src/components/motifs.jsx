@@ -8,12 +8,12 @@ import { useId } from 'react'
 import { useReveal } from '../hooks/useReveal.js'
 
 /**
- * 꽃살문 구분선(reveal 연동) — 섹션 진입 시 draw-on(700ms).
- * 섹션 구분선·마감용. accent 면 className="motif-divider--accent".
+ * 가로 구분선(reveal 연동) — 섹션 진입 시 draw-on(700ms).
+ * 무늬 없는 단순 hairline. accent 면 className="motif-divider--accent".
  */
 export function RevealDivider({ className = '' }) {
   const { ref, shown } = useReveal()
-  return <FlowerLatticeDivider ref={ref} shown={shown} className={className} />
+  return <LineDivider ref={ref} shown={shown} className={className} />
 }
 
 /**
@@ -34,11 +34,11 @@ export function Jogakbo({ side = 'left', children }) {
    --------------------------------------------------------------------- */
 
 /**
- * 꽃살문 구분선(완자·빗살 기하 격자 띠). 섹션 사이 구분선.
+ * 가로 구분선 — 무늬 없는 단순 hairline. 섹션 사이 구분선·마감용.
  * stroke = currentColor (호출부에서 color: line/accent 지정).
  * 진입 시 stroke-dashoffset draw-on(700ms) — .is-shown 토글로 발동.
  */
-export function FlowerLatticeDivider({ shown = false, className = '', ref, ...rest }) {
+export function LineDivider({ shown = false, className = '', ref, ...rest }) {
   return (
     <div
       ref={ref}
@@ -48,24 +48,14 @@ export function FlowerLatticeDivider({ shown = false, className = '', ref, ...re
     >
       <svg
         className="motif-divider__svg"
-        viewBox="0 0 240 24"
+        viewBox="0 0 240 8"
         fill="none"
         stroke="currentColor"
         strokeWidth="1"
         preserveAspectRatio="xMidYMid meet"
       >
-        {/* 가로 중심선 */}
-        <path className="dash" d="M0 12 H240" />
-        {/* 완자(卍) 계열 반복 격자 — 중앙 모듈 + 좌우 빗살 */}
-        {[60, 120, 180].map((cx) => (
-          <g key={cx} className="dash">
-            <rect x={cx - 9} y={3} width={18} height={18} />
-            <path d={`M${cx - 9} 12 H${cx + 9} M${cx} 3 V21`} />
-            <path d={`M${cx - 9} 3 L${cx + 9} 21 M${cx + 9} 3 L${cx - 9} 21`} />
-          </g>
-        ))}
-        {/* 좌우 빗살 마감 */}
-        <path className="dash" d="M20 6 L36 18 M36 6 L20 18 M204 6 L220 18 M220 6 L204 18" />
+        {/* 가로 중심선(무늬 없음) */}
+        <path className="dash" d="M0 4 H240" />
       </svg>
     </div>
   )

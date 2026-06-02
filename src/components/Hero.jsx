@@ -56,7 +56,7 @@ export default function Hero() {
           <Photo
             src={hero.heroPhoto}
             ratio="4 / 5"
-            label="청아 · 설아"
+            label="설아 · 청아"
             eager
           />
         </div>
