@@ -4,6 +4,12 @@
    기준: docs/superpowers/specs/2026-06-02-haji-light-interaction-design.md
    ===================================================================== */
 
+/* [스펙 §6 변수 스코프 결정 — 의식적 선택]
+   스펙 §6은 :root 전역 발행을 경계하나, --pointer-x/y는 backdrop(빛망울·처마)과
+   Hero 두 이름이 함께 참조하므로 둘의 유일한 공통 조상인 .app-root에 발행한다.
+   이 변수를 참조하는 노드는 backdrop 자식과 .hero__name-wrap 등 소수뿐이라
+   (브라우저가 참조 노드만 style 재계산) :root가 경계한 전역 재계산 비용은
+   실질적으로 발생하지 않는다. */
 .app-root {
   /* 변수 기본값 — JS 미동작/SSR 시에도 안전 */
   --pointer-x: 0;
@@ -23,7 +29,6 @@
 .backdrop > * {
   position: absolute;
   inset: 0;
-  will-change: transform, opacity;
 }
 
 /* C. 스크롤 빛 변화 — 미리 칠한 3장을 opacity 크로스페이드.
@@ -31,15 +36,18 @@
 .backdrop__light--morning {
   background: radial-gradient(120% 90% at 50% 18%, #FBF1DD 0%, #FAF4EA 60%);
   opacity: calc(1 - var(--scroll-progress, 0));
+  will-change: opacity;
 }
 .backdrop__light--dusk {
   background: radial-gradient(120% 90% at 50% 82%, #F4E2CC 0%, #EFDAC1 70%);
   opacity: var(--scroll-progress, 0);
+  will-change: opacity;
 }
 .backdrop__light--noon {
   background: radial-gradient(90% 70% at 50% 40%, rgba(255, 250, 235, 0.9) 0%, rgba(255, 250, 235, 0) 65%);
   /* 0→0.5→0 포물선: p*(1-p)*4 (단위 없는 number 곱 → opacity 유효) */
   opacity: calc(var(--scroll-progress, 0) * (1 - var(--scroll-progress, 0)) * 4);
+  will-change: opacity;
 }
 
 /* B. 처마 패럴랙스 — 부드러운 그림자 띠(에셋 없이). transform 만 변경.
@@ -59,6 +67,7 @@
     0
   );
   opacity: 0.6;
+  will-change: transform;
 }
 .backdrop__eaves--near {
   top: -10%;
@@ -69,6 +78,7 @@
     0
   );
   opacity: 0.8;
+  will-change: transform;
 }
 
 /* A. 빛망울 — 미리 칠한 radial 레이어를 transform 이동만.
@@ -86,6 +96,7 @@
     0
   );
   opacity: calc(0.9 - var(--scroll-progress, 0) * 0.45);
+  will-change: transform;
 }
 
 /* G. 빛 입자 canvas — 전체 고정, 콘텐츠 뒤(backdrop 위, 텍스트 아래). */
