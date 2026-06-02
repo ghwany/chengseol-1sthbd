@@ -19,10 +19,11 @@
   --color-dancheong-red: var(--color-highlight);
   --color-dancheong-yellow: var(--color-gold);
 
-  /* 타이포 (§3) */
-  --font-serif: 'Song Myung', serif;              /* 제목/이름/날짜 */
-  --font-sans: 'Pretendard Variable', 'Pretendard',
-    -apple-system, BlinkMacSystemFont, system-ui, sans-serif; /* 본문/UI */
+  /* 타이포 (§3) — 전 텍스트 고운바탕 통일(제목·이름·본문·UI 모두) */
+  --font-serif: 'Gowun Batang', serif;            /* 제목/이름/날짜 */
+  /* 본문/UI도 고운바탕. 로드 전 폴백은 시스템 명조 계열(Pretendard는 swap 전 임시). */
+  --font-sans: 'Gowun Batang', 'Pretendard Variable', 'Pretendard',
+    -apple-system, BlinkMacSystemFont, system-ui, serif; /* 본문/UI */
 
   --fs-hero-name: 2.5rem;
   --fs-hero-sub: 1rem;
