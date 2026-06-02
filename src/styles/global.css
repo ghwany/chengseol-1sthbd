@@ -20,7 +20,7 @@
   --color-dancheong-yellow: var(--color-gold);
 
   /* 타이포 (§3) */
-  --font-serif: 'Gowun Batang', serif;            /* 제목/이름/날짜 */
+  --font-serif: 'Song Myung', serif;              /* 제목/이름/날짜 */
   --font-sans: 'Pretendard Variable', 'Pretendard',
     -apple-system, BlinkMacSystemFont, system-ui, sans-serif; /* 본문/UI */
 
