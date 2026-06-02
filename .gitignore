@@ -15,6 +15,7 @@ dist-ssr
 # Harness internals & build workspace (dev-time only, not part of the published site)
 .claude
 _workspace
+.superpowers
 
 # Editor directories and files
 .vscode/*
