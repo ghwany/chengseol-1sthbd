@@ -1,5 +1,6 @@
 import Reveal from './Reveal.jsx'
 import Photo from './Photo.jsx'
+import { DancheongGlyph, Jogakbo } from './motifs.jsx'
 import { content } from '../content.js'
 
 /**
@@ -18,15 +19,21 @@ export default function Gallery() {
     gallery.placeholderPerBaby,
   )
 
+  // 좌=청아(left), 우=설아(right) — 조각보 거울 대칭
   const columns = [
-    { label: cheonga.short, photos: gallery.cheonga },
-    { label: seola.short, photos: gallery.seola },
+    { label: cheonga.short, photos: gallery.cheonga, side: 'left' },
+    { label: seola.short, photos: gallery.seola, side: 'right' },
   ]
 
   return (
     <section className="section">
       <Reveal className="gallery">
-        <h2 className="section-title serif gallery__title">{gallery.title}</h2>
+        <h2 className="section-title serif gallery__title">
+          <span className="title-with-glyph">
+            <DancheongGlyph size={22} />
+            {gallery.title}
+          </span>
+        </h2>
 
         {/* 함께 사진(C7, 선택) — 있을 때만 풀폭 1열 */}
         {gallery.together.length > 0 && (
@@ -41,18 +48,20 @@ export default function Gallery() {
 
         <div className="gallery__grid">
           {columns.map((col) => (
-            <div className="gallery__col" key={col.label}>
-              <span className="gallery__col-label label">{col.label}</span>
-              {Array.from({ length: count }).map((_, i) => (
-                <Reveal
-                  key={`${col.label}-${i}`}
-                  delay={i * 80}
-                  className="gallery__cell"
-                >
-                  <Photo src={col.photos[i] ?? null} ratio="4 / 5" label={col.label} />
-                </Reveal>
-              ))}
-            </div>
+            <Jogakbo side={col.side} key={col.label}>
+              <div className="gallery__col">
+                <span className="gallery__col-label label">{col.label}</span>
+                {Array.from({ length: count }).map((_, i) => (
+                  <Reveal
+                    key={`${col.label}-${i}`}
+                    delay={i * 80}
+                    className="gallery__cell"
+                  >
+                    <Photo src={col.photos[i] ?? null} ratio="4 / 5" label={col.label} />
+                  </Reveal>
+                ))}
+              </div>
+            </Jogakbo>
           ))}
         </div>
       </Reveal>

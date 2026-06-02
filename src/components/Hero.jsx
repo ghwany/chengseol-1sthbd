@@ -1,6 +1,7 @@
 import Reveal from './Reveal.jsx'
 import Photo from './Photo.jsx'
 import { ArrowDownIcon } from './icons.jsx'
+import { DancheongGlyph, KnotVertical, FlowerLatticeWatermark } from './motifs.jsx'
 import { content } from '../content.js'
 
 /**
@@ -13,7 +14,15 @@ export default function Hero() {
 
   return (
     <header className="section hero">
-      <Reveal immediate delay={0} className="hero__label label">
+      {/* 배경 꽃살문 워터마크(옥색 2~3%) — 콘텐츠 레이어 내부, 배경 빛과 분리 */}
+      <FlowerLatticeWatermark />
+
+      {/* 단청 1점 — hero 상단 */}
+      <Reveal immediate delay={0} className="hero__dancheong">
+        <DancheongGlyph size={30} />
+      </Reveal>
+
+      <Reveal immediate delay={50} className="hero__label label">
         {hero.label}
       </Reveal>
 
@@ -23,7 +32,9 @@ export default function Hero() {
         <span className="hero__name-wrap">
           <span className="hero__name serif">{babies[0].name}</span>
         </span>
-        <span className="hero__knot" aria-hidden="true" />
+        <span className="hero__knot" aria-hidden="true">
+          <KnotVertical />
+        </span>
         <span className="hero__name-wrap">
           <span className="hero__name serif">{babies[1].name}</span>
         </span>

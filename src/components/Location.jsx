@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Reveal from './Reveal.jsx'
 import { PinIcon, CopyIcon } from './icons.jsx'
+import { RevealDivider } from './motifs.jsx'
 import { content } from '../content.js'
 
 /** Location — 오시는 길. 지도/주소/교통 모두 미제공이면 슬롯 표기. (스펙 §4-5) */
@@ -23,6 +24,9 @@ export default function Location() {
     <section className="section">
       <Reveal className="location">
         <h2 className="section-title serif location__title">{location.title}</h2>
+
+        {/* 꽃살문 띠 구분선(스펙 §5 Location) */}
+        <RevealDivider className="location__divider" />
 
         {/* 지도(C12): iframe 임베드는 카카오 JS 키 필요 → 정적 호스팅에선
             외부 지도 링크(mapLinkUrl)로 처리. 둘 다 없으면 플레이스홀더. */}

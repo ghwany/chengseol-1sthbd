@@ -37,7 +37,7 @@
 }
 
 /* 미제공 슬롯 안내 텍스트 — 회색, 본문 위계 낮춤.
-   (M1 수정: opacity 제거 — text-muted #6B5D4D/bg 5.82:1 대비비 그대로 유지) */
+   (text-muted #515B53 / bg #EFF3F0 = 6.31:1 — 본문 기준 통과, 스펙 §2-1) */
 .slot-note {
   color: var(--color-muted);
   font-size: var(--fs-caption);
@@ -45,6 +45,7 @@
 
 /* ---- 카드 ---- */
 .card {
+  position: relative; /* 꽃살문 모서리 브래킷(absolute) 기준 */
   border-radius: var(--radius-card);
   padding: 2rem;
 }
@@ -78,7 +79,7 @@
 }
 .btn--accent {
   background: var(--color-accent);
-  color: #fff; /* accent/흰색 = 7.31:1 (스펙 §2) */
+  color: #fff; /* white/accent #2A6E6A = 5.94:1 (스펙 §2-1) */
 }
 .btn--sm {
   min-height: 44px;
@@ -112,8 +113,8 @@
       45deg,
       var(--color-surface),
       var(--color-surface) 10px,
-      #efe4d3 10px,
-      #efe4d3 20px
+      #d3e0d7 10px,
+      #d3e0d7 20px
     );
   border: 1px solid var(--color-line);
 }
@@ -136,11 +137,18 @@
    HERO — 쌍둥이 대칭 (스펙 §4-1, §5)
    ===================================================================== */
 .hero {
+  position: relative; /* 꽃살문 워터마크(absolute) 기준 */
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 4.5rem;
+}
+/* hero 직계 콘텐츠는 워터마크(z:0) 위로 */
+.hero > .reveal,
+.hero > .hero__scroll {
+  position: relative;
+  z-index: 1;
 }
 .hero__label {
   margin-bottom: 1.5rem;
@@ -164,13 +172,12 @@
   line-height: 1.3;
   color: var(--color-highlight); /* 이름 강조 — 단청 적 (절제) */
 }
-/* 이름 사이 매듭 문양(gold, height 24px) — 세로 스택용 (스펙 §4-1) */
+/* 이름 사이 매듭 문양(gold SVG) — 세로 스택용 (스펙 §4-1, §8 매듭) */
 .hero__knot {
-  display: block;
-  width: 1px;
-  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0.5rem 0;
-  background: var(--color-gold);
 }
 
 @keyframes name-rise {
@@ -366,28 +373,40 @@
    CLOSING — 두 이름 대칭 재표기 (스펙 §4-6)
    ===================================================================== */
 .closing {
+  position: relative; /* 꽃살문 워터마크 기준 */
   text-align: center;
   padding-top: 5rem;
   padding-bottom: 5rem;
   background: var(--color-bg);
+}
+.closing__inner {
+  position: relative;
+  z-index: 1; /* 워터마크(z:0) 위 */
 }
 .closing__message {
   color: var(--color-text);
   white-space: pre-line;
 }
 .closing__names {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
   margin: 1.75rem 0;
 }
 .closing__name {
   font-size: var(--fs-section-title);
   color: var(--color-highlight);
 }
-.closing__dot {
-  color: var(--color-gold);
-  font-size: var(--fs-section-title);
+/* 두 이름 사이 가로 매듭(gold) — 두 이름의 형제(중앙), 좌우 대칭 강화 */
+.closing__knot {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.closing__divider {
+  margin-top: 2.5rem;
+  color: var(--color-line);
 }
 .closing__family {
   color: var(--color-muted);
@@ -414,10 +433,9 @@
     flex-direction: row;
     justify-content: center;
   }
-  /* 가로 배치 시 매듭은 정중앙(두 동일 폭 컬럼 사이) — 세로선 + 양옆 동일 간격 */
+  /* 가로 배치 시 매듭은 정중앙(두 동일 폭 컬럼 사이) — 양옆 동일 간격 */
   .hero__knot {
     flex: 0 0 auto;
-    height: 2.5rem;
     margin: 0 1.5rem;
   }
 }

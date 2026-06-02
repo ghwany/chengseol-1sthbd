@@ -44,7 +44,7 @@ export default function LightMotes({ enabled = true, count = 18 }) {
         const y = (((yRaw % 1) + 1) % 1) * h
         ctx.beginPath()
         ctx.arc(x, y, m.r, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(176, 138, 79, 0.16)' // gold 극옅게
+        ctx.fillStyle = 'rgba(156, 124, 69, 0.16)' // gold #9C7C45 극옅게(장식 빛 입자)
         ctx.fill()
       }
       raf = requestAnimationFrame(frame)
