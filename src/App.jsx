@@ -22,7 +22,7 @@ export default function App() {
   return (
     <div className="app-root" ref={rootRef}>
       <HanokBackdrop />
-      {ambientMotion && <LightMotes enabled count={18} />}
+      {ambientMotion && <LightMotes enabled count={pointerMotion ? 18 : 12} />}
       <div className="invitation">
         <Hero />
         <Greeting />
