@@ -27,6 +27,9 @@ describe('normalizePointer', () => {
   it('폭/높이 0 이면 0 반환(0 division 방지)', () => {
     expect(normalizePointer(10, 10, { left: 0, top: 0, width: 0, height: 0 })).toEqual({ x: 0, y: 0 })
   })
+  it('비영 origin(left=200): 중심 clientX=250 → x=0', () => {
+    expect(normalizePointer(250, 50, { left: 200, top: 0, width: 100, height: 100 })).toEqual({ x: 0, y: 0 })
+  })
 })
 
 describe('scrollProgress', () => {
@@ -34,4 +37,5 @@ describe('scrollProgress', () => {
   it('맨 아래는 1', () => expect(scrollProgress(1000, 2000, 1000)).toBe(1))
   it('중간은 0.5', () => expect(scrollProgress(500, 2000, 1000)).toBe(0.5))
   it('스크롤 불가(문서≤뷰포트)면 0', () => expect(scrollProgress(0, 800, 1000)).toBe(0))
+  it('음수 scrollY는 0으로 클램프', () => expect(scrollProgress(-100, 2000, 1000)).toBe(0))
 })

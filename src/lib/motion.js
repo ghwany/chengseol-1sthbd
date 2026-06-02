@@ -1,9 +1,15 @@
-/** 값을 [min, max] 범위로 제한 */
+/**
+ * 값을 [min, max] 범위로 제한.
+ * @param min - max 이하라고 가정 (min > max 인 경우 동작 미정의)
+ */
 export function clamp(v, min, max) {
   return Math.min(max, Math.max(min, v))
 }
 
-/** 선형 보간: t=0 → a, t=1 → b */
+/**
+ * 선형 보간: t=0 → a, t=1 → b.
+ * t는 보통 0..1 범위이며, 범위 밖이면 외삽(extrapolation)된다.
+ */
 export function lerp(a, b, t) {
   return a + (b - a) * t
 }
