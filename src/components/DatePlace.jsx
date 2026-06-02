@@ -1,5 +1,6 @@
 import Reveal from './Reveal.jsx'
 import { ClockIcon, CalendarIcon } from './icons.jsx'
+import { RevealDivider } from './motifs.jsx'
 import { content } from '../content.js'
 
 /** Date & Place — 일시·장소. surface-white 카드. (스펙 §4-4) */
@@ -24,7 +25,8 @@ export default function DatePlace() {
         </p>
         <p className="dateplace__weekday serif">{date.weekday}</p>
 
-        <hr className="hairline" />
+        {/* 꽃살문 띠 구분선(스펙 §5 Date·Place) — accent draw-on */}
+        <RevealDivider className="motif-divider--accent dateplace__divider" />
 
         {/* C9: 시간 미정 → 임의 표기 금지, 안내 슬롯 */}
         <p className="dateplace__time">

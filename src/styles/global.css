@@ -3,16 +3,21 @@
    임의 변경 금지.
    ===================================================================== */
 :root {
-  /* 색상 (§2) */
-  --color-bg: #FAF4EA;          /* 한지 크림 */
-  --color-surface: #F4EBDD;     /* 한지 톤 표면 */
+  /* 색상 (§2 — "옥빛 안뜰" 쿨 톤 재정의. 임의 변경 금지) */
+  --color-bg: #EFF3F0;          /* 푸른기 도는 미색(한지 결 유지, 온도↓) */
+  --color-surface: #E2EBE5;     /* 연옥색 표면 */
   --color-surface-white: #FFFFFF;
-  --color-text: #3A322B;        /* 먹빛 갈색 본문/제목 */
-  --color-muted: #6B5D4D;       /* 보조 텍스트 */
-  --color-accent: #2E5C6E;      /* 청자 청 — 포인트 */
-  --color-highlight: #9E3B2E;   /* 단청 적 — 강조(이름/날짜) */
-  --color-line: #D8C9B2;        /* 1px 구분선 */
-  --color-gold: #B08A4F;        /* 극소량 장식 */
+  --color-text: #2E352F;        /* 먹빛(녹빛 미세 언더톤) 본문/제목 */
+  --color-muted: #515B53;       /* 보조 텍스트 */
+  --color-accent: #2A6E6A;      /* 청자 청 → 청록 — 포인트 */
+  --color-highlight: #9E3B2E;   /* 단청 적 — 강조(이름/날짜). 쿨 바탕 위 의도된 따뜻한 초점 */
+  --color-line: #C4D2C8;        /* 1px 구분선 — 옥빛 hairline */
+  --color-gold: #9C7C45;        /* 매듭·단청 stroke 등 장식 전용 */
+
+  /* 단청 오방색 — 토큰 합성(별도 hex 금지): 청록=accent, 적=highlight, 황=gold */
+  --color-dancheong-blue: var(--color-accent);
+  --color-dancheong-red: var(--color-highlight);
+  --color-dancheong-yellow: var(--color-gold);
 
   /* 타이포 (§3) */
   --font-serif: 'Gowun Batang', serif;            /* 제목/이름/날짜 */
@@ -61,10 +66,10 @@ body {
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* 한지 결 느낌의 아주 옅은 텍스처(이미지 에셋 없이 그라데이션으로) */
+  /* 한지 결 느낌의 아주 옅은 텍스처(이미지 에셋 없이 그라데이션으로 · 쿨 톤) */
   background-image:
-    radial-gradient(circle at 20% 10%, rgba(176, 138, 79, 0.04), transparent 60%),
-    radial-gradient(circle at 80% 90%, rgba(46, 92, 110, 0.03), transparent 55%);
+    radial-gradient(circle at 20% 10%, rgba(156, 124, 69, 0.04), transparent 60%),  /* gold #9C7C45 */
+    radial-gradient(circle at 80% 90%, rgba(42, 110, 106, 0.03), transparent 55%);   /* accent #2A6E6A */
   background-attachment: fixed;
 }
 
