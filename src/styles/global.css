@@ -1,0 +1,125 @@
+/* =====================================================================
+   디자인 토큰 — 디자인 스펙(01_design_spec.md) §2~§5 값을 그대로 박음.
+   임의 변경 금지.
+   ===================================================================== */
+:root {
+  /* 색상 (§2) */
+  --color-bg: #FAF4EA;          /* 한지 크림 */
+  --color-surface: #F4EBDD;     /* 한지 톤 표면 */
+  --color-surface-white: #FFFFFF;
+  --color-text: #3A322B;        /* 먹빛 갈색 본문/제목 */
+  --color-muted: #6B5D4D;       /* 보조 텍스트 */
+  --color-accent: #2E5C6E;      /* 청자 청 — 포인트 */
+  --color-highlight: #9E3B2E;   /* 단청 적 — 강조(이름/날짜) */
+  --color-line: #D8C9B2;        /* 1px 구분선 */
+  --color-gold: #B08A4F;        /* 극소량 장식 */
+
+  /* 타이포 (§3) */
+  --font-serif: 'Gowun Batang', serif;            /* 제목/이름/날짜 */
+  --font-sans: 'Pretendard Variable', 'Pretendard',
+    -apple-system, BlinkMacSystemFont, system-ui, sans-serif; /* 본문/UI */
+
+  --fs-hero-name: 2.5rem;
+  --fs-hero-sub: 1rem;
+  --fs-section-title: 1.5rem;
+  --fs-body: 1rem;
+  --fs-body-lg: 1.125rem;
+  --fs-caption: 0.875rem;
+  --fs-date-num: 2rem;
+  --fs-label: 0.8125rem;
+
+  /* 레이아웃 (§4) */
+  --content-max: 420px;
+  --pad-x: 1.5rem;
+  --pad-y: 4rem;
+  --radius-card: 16px;
+  --radius-photo: 12px;
+  --radius-img: 10px;
+
+  /* 모션 (§5) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-reveal: 600ms;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.8;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* 한지 결 느낌의 아주 옅은 텍스처(이미지 에셋 없이 그라데이션으로) */
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(176, 138, 79, 0.04), transparent 60%),
+    radial-gradient(circle at 80% 90%, rgba(46, 92, 110, 0.03), transparent 55%);
+  background-attachment: fixed;
+}
+
+p {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* 명조 제목 계열 — 자간 0 */
+.serif {
+  font-family: var(--font-serif);
+  letter-spacing: 0;
+}
+
+/* ---------------------------------------------------------------------
+   스크롤 등장 애니메이션 (§5)
+   .reveal: 초기 상태(숨김), .is-shown: 등장 완료.
+   --------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-shown {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* prefers-reduced-motion: 모든 transform 제거, 즉시/페이드만 (§5) */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-shown {
+    transition: opacity 1ms linear;
+    transform: none;
+    opacity: 1;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

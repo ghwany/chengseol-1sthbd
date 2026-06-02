@@ -1,0 +1,423 @@
+/* =====================================================================
+   레이아웃 & 컴포넌트 스타일 — 디자인 스펙 §3·§4 준수.
+   모바일 우선(360px) → ≥768px 확장.
+   ===================================================================== */
+
+.invitation {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  /* 좁은 폭 초대장 — 데스크톱에서 양옆 한지 톤 여백과 살짝 분리 */
+}
+
+/* 공통 섹션 — 상하 4rem, 좌우 1.5rem (스펙 §4) */
+.section {
+  padding: var(--pad-y) var(--pad-x);
+}
+
+/* 섹션 경계: 한지 톤 hairline */
+.section + .section {
+  border-top: 1px solid var(--color-line);
+}
+
+/* ---- 타이포 토큰 클래스 (스펙 §3) ---- */
+.label {
+  font-size: var(--fs-label);
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+  text-transform: none;
+}
+.section-title {
+  font-size: var(--fs-section-title);
+  line-height: 1.4;
+}
+.caption {
+  font-size: var(--fs-caption);
+  line-height: 1.6;
+}
+
+/* 미제공 슬롯 안내 텍스트 — 회색, 본문 위계 낮춤.
+   (M1 수정: opacity 제거 — text-muted #6B5D4D/bg 5.82:1 대비비 그대로 유지) */
+.slot-note {
+  color: var(--color-muted);
+  font-size: var(--fs-caption);
+}
+
+/* ---- 카드 ---- */
+.card {
+  border-radius: var(--radius-card);
+  padding: 2rem;
+}
+.card--surface {
+  background: var(--color-surface);
+}
+.card--white {
+  background: var(--color-surface-white);
+  border: 1px solid var(--color-line);
+}
+
+.hairline {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin: 1.25rem auto;
+  width: 60%;
+}
+
+/* ---- 버튼 (터치 타깃 ≥44px, 세로 패딩 ≥0.75rem) (스펙 §4 주) ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0.75rem 1.25rem;
+  border: 0;
+  border-radius: 10px;
+  font-size: var(--fs-body);
+  line-height: 1;
+}
+.btn--accent {
+  background: var(--color-accent);
+  color: #fff; /* accent/흰색 = 7.31:1 (스펙 §2) */
+}
+.btn--sm {
+  min-height: 44px;
+  padding: 0.6rem 0.9rem;
+  font-size: var(--fs-caption);
+  white-space: nowrap;
+}
+
+/* ---- 사진 / 플레이스홀더 (스펙 §4-3) ---- */
+.photo {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-img);
+  background: var(--color-surface);
+}
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo--placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--color-muted);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      var(--color-surface),
+      var(--color-surface) 10px,
+      #efe4d3 10px,
+      #efe4d3 20px
+    );
+  border: 1px solid var(--color-line);
+}
+.photo__ph-label {
+  font-size: var(--fs-caption);
+}
+
+/* 한지 매트(흰 여백 + line 테두리) — Hero/함께 사진 (스펙 §4-1) */
+.photo-mat {
+  background: var(--color-surface-white);
+  padding: 8px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-photo);
+}
+.photo-mat .photo {
+  border-radius: calc(var(--radius-photo) - 4px);
+}
+
+/* =====================================================================
+   HERO — 쌍둥이 대칭 (스펙 §4-1, §5)
+   ===================================================================== */
+.hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4.5rem;
+}
+.hero__label {
+  margin-bottom: 1.5rem;
+}
+
+/* 두 이름: 모바일 세로 스택 중앙정렬(청아 / knot / 설아), 동일 크기 */
+.hero__names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: name-rise 700ms var(--ease-out) both;
+}
+.hero__name-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero__name {
+  font-size: var(--fs-hero-name);
+  line-height: 1.3;
+  color: var(--color-highlight); /* 이름 강조 — 단청 적 (절제) */
+}
+/* 이름 사이 매듭 문양(gold, height 24px) — 세로 스택용 (스펙 §4-1) */
+.hero__knot {
+  display: block;
+  width: 1px;
+  height: 24px;
+  margin: 0.5rem 0;
+  background: var(--color-gold);
+}
+
+@keyframes name-rise {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.hero__subtitle {
+  margin-top: 1.25rem;
+  font-size: var(--fs-hero-sub);
+  color: var(--color-muted);
+}
+.hero__date {
+  margin-top: 1.75rem;
+  font-size: var(--fs-date-num);
+  line-height: 1.2;
+  color: var(--color-text);
+}
+.hero__weekday {
+  color: var(--color-highlight);
+}
+.hero__photo {
+  margin-top: 2.5rem;
+  width: 100%;
+  max-width: 320px;
+}
+
+/* 스크롤 유도 화살표 — 상시 bounce loop (스펙 §5) */
+.hero__scroll {
+  margin-top: 2.5rem;
+  color: var(--color-muted);
+  animation: scroll-bounce 1600ms ease-in-out infinite;
+}
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+
+/* =====================================================================
+   GREETING (스펙 §4-2)
+   ===================================================================== */
+.greeting {
+  text-align: center;
+}
+.greeting__title {
+  color: var(--color-highlight);
+  margin: 0 0 1.25rem;
+}
+.greeting__body {
+  font-size: var(--fs-body-lg);
+  line-height: 1.8;
+  white-space: pre-line;
+}
+.greeting__parents {
+  margin-top: 1.5rem;
+  color: var(--color-text);
+}
+
+/* =====================================================================
+   GALLERY — 쌍둥이 균형 페어 2열 (스펙 §4-3)
+   ===================================================================== */
+.gallery__title {
+  text-align: center;
+  margin: 0 0 1.5rem;
+}
+.gallery__together {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.gallery__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 좌=청아, 우=설아 — 동일 폭 */
+  gap: 0.5rem;
+}
+.gallery__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.gallery__col-label {
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+.gallery__cell {
+  width: 100%;
+}
+
+/* =====================================================================
+   DATE & PLACE (스펙 §4-4)
+   ===================================================================== */
+.dateplace {
+  text-align: center;
+}
+.dateplace__date {
+  margin: 0;
+}
+.dateplace__num {
+  font-size: var(--fs-date-num);
+  line-height: 1.2;
+  color: var(--color-text);
+}
+.dateplace__weekday {
+  margin-top: 0.25rem;
+  color: var(--color-highlight);
+  font-size: var(--fs-body-lg);
+}
+.dateplace__time {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+.dateplace__place {
+  font-size: var(--fs-body-lg);
+  color: var(--color-text);
+  margin: 0.25rem 0 0.25rem;
+}
+.dateplace__hall {
+  color: var(--color-muted);
+  font-size: var(--fs-caption);
+}
+.dateplace__cal {
+  margin-top: 1.5rem;
+}
+
+/* =====================================================================
+   LOCATION (스펙 §4-5)
+   ===================================================================== */
+.location__title {
+  text-align: center;
+  margin: 0 0 1.5rem;
+}
+.location__map {
+  width: 100%;
+  height: 240px; /* 모바일 240px (스펙 §4-5) */
+  border-radius: var(--radius-photo);
+  border: 1px solid var(--color-line);
+  overflow: hidden;
+}
+.location__map-ph {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--color-muted);
+  background: var(--color-surface);
+}
+/* 외부 지도 링크 박스 — iframe 대체(키 불필요). 한지 톤 위 핀+CTA. */
+.location__map-link {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--color-accent);
+  text-decoration: none;
+  background: var(--color-surface);
+}
+.location__map-cta {
+  /* .btn 스타일 상속(터치 타깃 ≥44px). 링크 안 span 이라 pointer-events 통과 */
+  pointer-events: none;
+}
+.location__placename {
+  text-align: center;
+  font-size: var(--fs-body-lg);
+  margin: 1.25rem 0 0.5rem;
+}
+.location__addr-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.location__addr {
+  flex: 1 1 60%;
+  color: var(--color-text);
+}
+.location__transit {
+  margin-top: 1rem;
+  color: var(--color-muted);
+}
+
+/* =====================================================================
+   CLOSING — 두 이름 대칭 재표기 (스펙 §4-6)
+   ===================================================================== */
+.closing {
+  text-align: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background: var(--color-bg);
+}
+.closing__message {
+  color: var(--color-text);
+  white-space: pre-line;
+}
+.closing__names {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 1.75rem 0;
+}
+.closing__name {
+  font-size: var(--fs-section-title);
+  color: var(--color-highlight);
+}
+.closing__dot {
+  color: var(--color-gold);
+  font-size: var(--fs-section-title);
+}
+.closing__family {
+  color: var(--color-muted);
+}
+
+/* =====================================================================
+   데스크톱 (≥768px) — 타이포 상향 + Hero 두 이름 가로 나란히 (스펙 §3·§4-1)
+   ===================================================================== */
+@media (min-width: 768px) {
+  :root {
+    --fs-hero-name: 3.25rem;
+    --fs-section-title: 1.875rem;
+  }
+
+  /* Hero 두 이름: 가로 나란히, 양쪽 동일 폭 컬럼, 가운데 문양(knot는 형제) */
+  .hero__names {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+  .hero__name-wrap {
+    flex: 1 1 0; /* 두 이름 동일 폭 — 청아 컬럼과 설아 컬럼이 knot 기준 대칭 */
+    flex-direction: row;
+    justify-content: center;
+  }
+  /* 가로 배치 시 매듭은 정중앙(두 동일 폭 컬럼 사이) — 세로선 + 양옆 동일 간격 */
+  .hero__knot {
+    flex: 0 0 auto;
+    height: 2.5rem;
+    margin: 0 1.5rem;
+  }
+}
