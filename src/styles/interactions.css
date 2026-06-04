@@ -101,7 +101,15 @@
   will-change: transform;
 }
 
-/* G. (폐기) 전역 빛 입자 canvas → 여름 윤슬은 Hero 내부 "수면 띠"로 이동(§5-1 재설계). */
+/* G. 여름 윤슬 — 전역 배경 빛 일렁임(caustics) canvas. 화면 고정, 콘텐츠 뒤(backdrop 위). */
+.water-caustics {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
 .invitation {
   position: relative;
   z-index: 1; /* 입자/배경 위에 콘텐츠 */
@@ -151,7 +159,7 @@
   .backdrop__light--morning { opacity: 0 !important; }
   .backdrop__light--dusk { opacity: 0 !important; }
   .backdrop__light--noon { opacity: 1 !important; } /* 정적 정오빛 */
-  /* 윤슬: 수면 띠(.hero__water CSS)는 정적 유지, sparkle canvas는 Hero가 미렌더(완전 정지). */
+  /* 윤슬: 전역 빛 일렁임(.water-caustics)은 App이 미렌더(완전 정지). */
   .hero__names .hero__name-wrap:first-of-type,
   .hero__names .hero__name-wrap:last-of-type {
     animation: none !important;

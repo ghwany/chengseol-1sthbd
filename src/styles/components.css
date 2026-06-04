@@ -204,32 +204,6 @@
 .hero__weekday {
   color: var(--color-highlight);
 }
-/* 여름 윤슬 수면 띠 — 풀블리드 짙은 청록 그라데이션(어두운 수면). 네 변 mask 페이드로
-   직사각형 경계를 없애 "물의 결"로 읽히게. sparkle canvas가 이 안에만 그려짐. (스펙 §5-1) */
-.hero__water {
-  position: relative;
-  margin: 2.5rem 0 0;
-  width: 100vw;
-  margin-left: calc(50% - 50vw); /* 콘텐츠 폭을 넘어 풀블리드 */
-  height: 200px;
-  background: linear-gradient(180deg, #0A3A42 0%, #0F4A54 45%, #145560 100%);
-  /* 네 변 페이드: 상하/좌우 그라데이션의 교집합 → 모서리 직각 제거 */
-  -webkit-mask-image:
-    linear-gradient(to bottom, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%),
-    linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(to bottom, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%),
-    linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
-  mask-composite: intersect;
-}
-.water-shimmer__canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
 .hero__photo {
   margin-top: 2.5rem;
   width: 100%;
@@ -460,9 +434,5 @@
      폰트 상향(위 토큰) + 매듭 좌우 간격 복원만(모바일 0.75rem 축소값이 새지 않게). */
   .hero__knot {
     margin: 0 1.5rem;
-  }
-  /* 수면 띠 — 데스크톱에서 약간 더 깊게 */
-  .hero__water {
-    height: 260px;
   }
 }

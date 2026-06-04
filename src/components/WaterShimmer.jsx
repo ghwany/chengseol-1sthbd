@@ -1,28 +1,26 @@
 import { useEffect, useRef } from 'react'
 
 /**
- * 여름 윤슬 sparkle — 어두운 "수면 띠"(부모 .hero__water의 청록 그라데이션) 위에서만
- * 명멸하는 흰·은빛 정반사광. 띠 사각형 안에만 그린다(근-흰 한지 위엔 절대 안 그림 —
- * figure-ground 대비가 반전돼야 윤슬로 읽힌다). (스펙 §5-1 "옥빛 수면 띠")
+ * 여름 윤슬 — 전역 배경에 은은하게 흐르는 "빛 일렁임"(water caustics).
+ * 점(sparkle)이 아니라 면(연속 그라데이션)이다: 밝은 한지 배경 위에서 점은
+ * 안 보이거나 '먼지'로 보였다 → 수면을 통과한 빛이 부드럽게 흐르는 밝고 옅은
+ * 결(수영장 바닥 빛무늬)로 표현. 어두운 수면 불필요, 전체 배경에 잔잔히 깔림.
  *
- *  - 합성 'lighter'(가산): 어두운 수면 위에서 빛이 더해져 빛난다.
- *  - 색: 흰빛 ~70% + 은빛 ~20% + 엷은 금빛 ~10%.
- *  - 분포: 중앙 집중 + 좌우 대칭 감쇠(삼각분포, glitter path). y는 3개 가로 결.
- *  - 모양: 가로로 길쭉한 빛줄기(타원). 명멸: s³ 펄스(짧게 번쩍), 위상 desync.
- *  - 결정적(Math.random 미사용). reduced-motion 시 부모가 enabled=false → 미렌더(띠는 유지).
+ *  - 큰 저투명 그라데이션 블롭 여러 겹이 느리게 떠다니며 겹쳐 빛 결을 만든다(per-pixel 아님).
+ *  - 색: 흰끼(밝은 결) + 옅은 청록(그늘 결). 변조 진폭을 낮게 묶어 본문 대비(≥4.5:1) 유지.
+ *  - 결정적(Math.random 미사용). reduced-motion 시 부모가 enabled=false → 미렌더.
  */
 
-// sparkle 색(rgba 베이스) — a는 매 프레임 명멸값. 어두운 수면 위라 흰빛이 고대비.
-const SPARKS = [
-  '255, 255, 255', // 흰빛
-  '223, 235, 240', // 은빛
-  '214, 184, 120', // 엷은 금빛
+// 빛 결 색(rgba 베이스). 밝은 결=흰끼(밝은 배경에선 약함), 그늘 결=청록(대비 담당).
+// 청록 비중을 높여 "물에 빛이 일렁이는" 결이 실제로 보이게 한다(가독성 한계 내).
+const TINTS = [
+  '116, 172, 190', // 청록 결(그늘 — 대비 담당)
+  '255, 255, 255', // 밝은 빛 결
+  '138, 186, 200', // 청록 결
+  '116, 172, 190',
 ]
-// 70 / 20 / 10 : 10주기로 흰7 은2 금1
-const COLOR_PATTERN = [0, 0, 0, 0, 0, 0, 0, 1, 1, 2]
-const GOLDEN = 0.6180339887
 
-export default function WaterShimmer({ enabled = true, count = 50 }) {
+export default function WaterShimmer({ enabled = true, count = 14 }) {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -38,28 +36,27 @@ export default function WaterShimmer({ enabled = true, count = 50 }) {
       raf = 0,
       t = 0
 
-    const sparks = []
+    // 큰 빛 블롭 — 가로로 길쭉(수면 결은 가로 우세), 느리게 떠다니며 약하게 맥동.
+    const blobs = []
     for (let i = 0; i < count; i++) {
       const u = ((i * 31) % 17) / 17
       const v = ((i * 53) % 19) / 19
-      // x: 중앙 집중 + 좌우 대칭. 두 결정적 균등의 평균 = 삼각분포(μ=0.5, glitter path).
-      const r1 = (i * GOLDEN + 0.13) % 1
-      const r2 = (i * 0.3819660113 + 0.71) % 1
-      const x = (r1 + r2) / 2
-      // y: 3개 가로 결(수면 결)
-      const band = (i % 3) / 2
-      const y = 0.2 + band * 0.6 + (v - 0.5) * 0.14
-      sparks.push({
-        x,
-        y: Math.min(0.94, Math.max(0.06, y)),
-        r: 0.8 + u * 1.4, // 세로 반경 0.8~2.2px
-        sx: 2.5 + u * 2.0, // 가로 늘임 2.5~4.5배 — 수면 반사 줄무늬
-        color: SPARKS[COLOR_PATTERN[i % COLOR_PATTERN.length]],
-        twPeriod: 0.6 + u * 1.0, // 빠른 명멸 0.6~1.6s
-        twPhase: (i * 1.7) % (Math.PI * 2), // 위상 desync(전체장은 안 깜빡, 개별만 팝)
-        swayAmp: 2 + v * 3, // ±2~5px
-        swPeriod: 1.8 + ((i * 7) % 10) / 10 * 1.4, // 1.8~3.2s
-        swPhase: (i * 0.9) % (Math.PI * 2),
+      const g = ((i * 0.6180339887 + 0.13) % 1) // 균등
+      blobs.push({
+        bx: g, // 0~1
+        by: ((i * 0.3819660113 + 0.29) % 1),
+        rx: 0.22 + u * 0.16, // 화면폭의 22~38% (큰 면)
+        ry: 0.1 + v * 0.08, // 가로로 길쭉(rx > ry)
+        color: TINTS[i % TINTS.length],
+        op: 0.13 + u * 0.11, // 0.13~0.24 (보이되 가독성 유지)
+        ampX: 0.05 + v * 0.06, // 가로 우세 드리프트
+        ampY: 0.02 + u * 0.03,
+        spdX: 0.05 + u * 0.05, // 매우 느림(주기 ~수십 초)
+        spdY: 0.04 + v * 0.04,
+        phX: (i * 1.7) % (Math.PI * 2),
+        phY: (i * 0.9) % (Math.PI * 2),
+        opSpd: 0.06 + v * 0.05,
+        opPh: (i * 1.3) % (Math.PI * 2),
       })
     }
 
@@ -73,30 +70,27 @@ export default function WaterShimmer({ enabled = true, count = 50 }) {
     const frame = () => {
       t += 0.016
       ctx.clearRect(0, 0, w, h)
-      ctx.globalCompositeOperation = 'lighter' // 어두운 수면 위 가산 글로우 = 빛남
-      for (const s of sparks) {
-        // 날카로운 명멸: sin→0~1 정규화 후 세제곱 → 대부분 어둡고 피크에서만 짧게 번쩍
-        const sv = Math.sin((t / s.twPeriod) * Math.PI * 2 + s.twPhase) * 0.5 + 0.5
-        const a = sv * sv * sv * 0.9 // 0~0.9
-        if (a < 0.012) continue
-        const dx = Math.sin((t / s.swPeriod) * Math.PI * 2 + s.swPhase) * s.swayAmp
-        const x = s.x * w + dx
-        const y = s.y * h
-        const glow = s.r * 2.4
+      for (const b of blobs) {
+        const x = (b.bx + Math.sin(t * b.spdX + b.phX) * b.ampX) * w
+        const y = (b.by + Math.cos(t * b.spdY + b.phY) * b.ampY) * h
+        const op = b.op * (0.55 + 0.45 * (Math.sin(t * b.opSpd + b.opPh) * 0.5 + 0.5))
+        const rx = b.rx * w
+        const ry = b.ry * h
+        const rad = Math.max(rx, ry)
         ctx.save()
         ctx.translate(x, y)
-        ctx.scale(s.sx, 1) // 가로 타원 — 수면 반사광 줄무늬
-        const g = ctx.createRadialGradient(0, 0, 0, 0, 0, glow)
-        g.addColorStop(0, `rgba(${s.color}, ${a})`)
-        g.addColorStop(0.4, `rgba(${s.color}, ${a * 0.45})`)
-        g.addColorStop(1, `rgba(${s.color}, 0)`)
+        ctx.scale(1, ry / rx) // 가로로 길쭉한 타원
+        const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, rx)
+        grad.addColorStop(0, `rgba(${b.color}, ${op})`)
+        grad.addColorStop(0.6, `rgba(${b.color}, ${op * 0.35})`)
+        grad.addColorStop(1, `rgba(${b.color}, 0)`)
         ctx.beginPath()
-        ctx.arc(0, 0, glow, 0, Math.PI * 2)
-        ctx.fillStyle = g
+        ctx.arc(0, 0, rx, 0, Math.PI * 2)
+        ctx.fillStyle = grad
         ctx.fill()
         ctx.restore()
+        void rad
       }
-      ctx.globalCompositeOperation = 'source-over'
       raf = requestAnimationFrame(frame)
     }
     const onVisibility = () => {
@@ -121,5 +115,5 @@ export default function WaterShimmer({ enabled = true, count = 50 }) {
     }
   }, [enabled, count])
 
-  return <canvas className="water-shimmer__canvas" ref={canvasRef} aria-hidden="true" />
+  return <canvas className="water-caustics" ref={canvasRef} aria-hidden="true" />
 }

@@ -6,8 +6,8 @@ afterEach(cleanup)
 
 describe('WaterShimmer', () => {
   it('canvas 를 렌더하고 aria-hidden', () => {
-    const { container } = render(<WaterShimmer enabled count={50} />)
-    const canvas = container.querySelector('canvas.water-shimmer__canvas')
+    const { container } = render(<WaterShimmer enabled count={14} />)
+    const canvas = container.querySelector('canvas.water-caustics')
     expect(canvas).not.toBeNull()
     expect(canvas.getAttribute('aria-hidden')).toBe('true')
   })
