@@ -1,7 +1,9 @@
 import Reveal from './Reveal.jsx'
 import Photo from './Photo.jsx'
+import WaterShimmer from './WaterShimmer.jsx'
 import { ArrowDownIcon } from './icons.jsx'
 import { DancheongGlyph, KnotVertical, FlowerLatticeWatermark } from './motifs.jsx'
+import { useMotionEnabled } from '../hooks/useMotionEnabled.js'
 import { content } from '../content.js'
 
 /**
@@ -11,6 +13,7 @@ import { content } from '../content.js'
  */
 export default function Hero() {
   const { hero, date, babies } = content
+  const { pointerMotion, ambientMotion } = useMotionEnabled()
 
   return (
     <header className="section hero">
@@ -50,6 +53,14 @@ export default function Hero() {
         {date.year}. {date.monthDay}{' '}
         <span className="hero__weekday">({date.weekdayShort})</span>
       </Reveal>
+
+      {/* 여름 윤슬 — 짙은 청록 "수면 띠"(어두운 바탕) 위에서만 흰·은빛 반짝임 명멸.
+          띠(CSS)는 항상 표시, sparkle canvas는 ambientMotion일 때만(reduced-motion 정지). (스펙 §5-1) */}
+      <div className="hero__water" aria-hidden="true">
+        {ambientMotion && (
+          <WaterShimmer enabled count={pointerMotion ? 90 : 50} />
+        )}
+      </div>
 
       <Reveal immediate delay={400} className="hero__photo">
         <div className="photo-mat">
