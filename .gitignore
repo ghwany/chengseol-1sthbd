@@ -18,6 +18,9 @@ _workspace
 .superpowers
 docs
 
+# 사진 원본(고해상도) — 웹용 리사이즈본만 public/에 두고 원본은 배포·git 제외
+photo-originals
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
