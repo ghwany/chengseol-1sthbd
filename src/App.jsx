@@ -22,6 +22,7 @@ export default function App() {
   return (
     <div className="app-root" ref={rootRef}>
       <HanokBackdrop />
+      {/* 윤슬: 모바일(coarse) 12(≤12 고정), 데스크톱(fine) 18(≤20). reduced-motion이면 ambientMotion=false → unmount(완전 정지). (스펙 §5-1) */}
       {ambientMotion && <LightMotes enabled count={pointerMotion ? 18 : 12} />}
       <div className="invitation">
         <Hero />
