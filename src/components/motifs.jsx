@@ -16,19 +16,6 @@ export function RevealDivider({ className = '' }) {
   return <LineDivider ref={ref} shown={shown} className={className} />
 }
 
-/**
- * 조각보 프레임(reveal 연동) — 진입 시 fade+scale 0.96→1.
- * side 'left'|'right' 로 거울 대칭 코너 탭 위치 결정. 사진을 덮지 않는 프레임.
- */
-export function Jogakbo({ side = 'left', children }) {
-  const { ref, shown } = useReveal()
-  return (
-    <div ref={ref} className={`jogakbo jogakbo--${side} ${shown ? 'is-shown' : ''}`}>
-      {children}
-    </div>
-  )
-}
-
 /* ---------------------------------------------------------------------
    1) 꽃살문 / 창살 — 주 구조 장식
    --------------------------------------------------------------------- */

@@ -55,19 +55,6 @@ export const content = {
     parents: null, // TODO(C4): 예) '아빠 김○○ · 엄마 ○○○'
   },
 
-  // --- Gallery (갤러리) — 청아·설아 사진 동수 원칙 ---
-  gallery: {
-    title: '우리 자매',
-    // C5/C6: 각 아기 사진 N장 (동수 유지). 경로는 'images/...' 형태.
-    //  실사진 — 청아=설아 동수(2:2). 파일명 대소문자는 디스크와 정확히 일치(.JPG).
-    cheonga: ['images/cheonga_1.JPG', 'images/cheonga_2.JPG'],
-    seola: ['images/seola_1.JPG', 'images/seola_2.JPG'],
-    // C7: 함께 사진(선택) — 미제공.
-    together: [], // TODO(C7): 둘이 함께 사진(선택)
-    // 사진이 아직 없을 때 각 열에 보여줄 플레이스홀더 박스 개수.
-    placeholderPerBaby: 2,
-  },
-
   // --- Date & Place (일시 · 장소) ---
   place: {
     name: '더우미제 한옥스튜디오', // 확정
@@ -80,9 +67,12 @@ export const content = {
     title: '오시는 길',
     // C11: 주소 — 확정(오케스트레이터 핸드오프).
     address: '경기 용인시 기흥구 사은로 175 한옥스튜디오',
-    // C12: 지도 임베드 — iframe 은 카카오 JS 키 필요 → 미사용(null).
-    mapEmbedUrl: null,
-    // C12: 외부 지도 링크(키 불필요) — 카카오맵 주소 검색. 좌표 미상이라 검색 q 파라미터.
+    // C12: 지도 임베드 — 구글맵 embed(API 키 불필요). 주소 검색으로 표시.
+    mapEmbedUrl:
+      'https://maps.google.com/maps?q=' +
+      encodeURIComponent('경기 용인시 기흥구 사은로 175 한옥스튜디오') +
+      '&z=16&hl=ko&output=embed',
+    // C12: 외부 지도 링크(키 불필요) — 카카오맵 길찾기. 임베드와 별도로 버튼 유지.
     mapLinkUrl: 'https://map.kakao.com/?q=' + encodeURIComponent('경기 용인시 기흥구 사은로 175 한옥스튜디오'),
     // C13: 교통·주차 안내 — 미제공.
     transit: null, // TODO(C13): 대중교통/주차 안내
