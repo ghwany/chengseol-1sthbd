@@ -37,7 +37,7 @@
 }
 
 /* 미제공 슬롯 안내 텍스트 — 회색, 본문 위계 낮춤.
-   (text-muted #515B53 / bg #EFF3F0 = 6.31:1 — 본문 기준 통과, 스펙 §2-1) */
+   (text-muted #46606B / bg #E4EEF1 = 5.66:1 — 본문 기준 통과, 스펙 §2) */
 .slot-note {
   color: var(--color-muted);
   font-size: var(--fs-caption);
@@ -79,7 +79,7 @@
 }
 .btn--accent {
   background: var(--color-accent);
-  color: #fff; /* white/accent #2A6E6A = 5.94:1 (스펙 §2-1) */
+  color: #fff; /* white/accent #136B78 = 6.17:1 (스펙 §2) */
 }
 .btn--sm {
   min-height: 44px;
@@ -154,30 +154,35 @@
   margin-bottom: 1.5rem;
 }
 
-/* 두 이름: 모바일 세로 스택 중앙정렬(청아 / knot / 설아), 동일 크기 */
+/* 두 이름: 모바일·데스크톱 공통 좌우 가로 한 줄(설아 [매듭] 청아), 동일 폭 컬럼·동일 크기 (§4-1) */
 .hero__names {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 0;
   animation: name-rise 700ms var(--ease-out) both;
 }
 .hero__name-wrap {
   display: flex;
-  flex-direction: column;
+  flex: 1 1 0; /* 두 이름 동일 폭 — knot 기준 좌우 대칭 */
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
 }
 .hero__name {
   font-size: var(--fs-hero-name);
   line-height: 1.3;
-  color: var(--color-highlight); /* 이름 강조 — 단청 적 (절제) */
+  color: var(--color-highlight); /* 이름 강조 — 금빛(1.875rem=30px ≥24px → AA-large 통과) */
+  white-space: nowrap; /* 가로 한 줄 보장 — 줄바꿈 방지 */
 }
-/* 이름 사이 매듭 문양(gold SVG) — 세로 스택용 (스펙 §4-1, §8 매듭) */
+/* 이름 사이 매듭 문양(gold SVG) — 가로 배치 구분자 (스펙 §4-1, §8 매듭) */
 .hero__knot {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  margin: 0.5rem 0;
+  margin: 0 0.75rem; /* 모바일 축소 간격. 데스크톱 @media에서 0 1.5rem 복원 */
 }
 
 @keyframes name-rise {
@@ -223,7 +228,9 @@
   text-align: center;
 }
 .greeting__title {
-  color: var(--color-highlight);
+  /* section-title(1.5rem=24px)은 금빛 금지(§4-2: surface 위 금빛 3.04:1 시인성 약).
+     accent #136B78(surface 4.81:1 통과)로 변경. */
+  color: var(--color-accent);
   margin: 0 0 1.25rem;
 }
 .greeting__body {
@@ -283,7 +290,9 @@
 }
 .dateplace__weekday {
   margin-top: 0.25rem;
-  color: var(--color-highlight);
+  /* body-lg(1.125rem=18px) <24px → 금빛 highlight 금지. darken 금빛 #7A5F30
+     (bg 5.08 / surface 4.67 / white 5.99 — 어디서나 4.5:1↑) 사용 (§2 제약). */
+  color: #7A5F30;
   font-size: var(--fs-body-lg);
 }
 .dateplace__time {
@@ -421,21 +430,9 @@
     --fs-section-title: 1.875rem;
   }
 
-  /* Hero 두 이름: 가로 나란히, 양쪽 동일 폭 컬럼, 가운데 문양(knot는 형제) */
-  .hero__names {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-  }
-  .hero__name-wrap {
-    flex: 1 1 0; /* 두 이름 동일 폭 — 청아 컬럼과 설아 컬럼이 knot 기준 대칭 */
-    flex-direction: row;
-    justify-content: center;
-  }
-  /* 가로 배치 시 매듭은 정중앙(두 동일 폭 컬럼 사이) — 양옆 동일 간격 */
+  /* Hero 두 이름은 모바일부터 이미 가로 row·동일 폭 컬럼. 데스크톱은
+     폰트 상향(위 토큰) + 매듭 좌우 간격 복원만(모바일 0.75rem 축소값이 새지 않게). */
   .hero__knot {
-    flex: 0 0 auto;
     margin: 0 1.5rem;
   }
 }

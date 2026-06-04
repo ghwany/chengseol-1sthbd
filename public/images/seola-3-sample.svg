@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500" role="img" aria-label="설아 샘플 이미지">
   <!-- 샘플 — 실제 사진으로 교체 -->
-  <rect width="400" height="500" fill="#EFF3F0"/>
+  <rect width="400" height="500" fill="#E4EEF1"/>
   <rect x="0" y="0" width="400" height="500" fill="url(#paper)"/>
   <defs>
     <pattern id="paper" width="24" height="24" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-      <rect width="24" height="24" fill="#EFF3F0"/>
-      <rect width="12" height="24" fill="#E2EBE5"/>
+      <rect width="24" height="24" fill="#E4EEF1"/>
+      <rect width="12" height="24" fill="#D6E6EA"/>
     </pattern>
   </defs>
   <!-- 처마 실루엣 라인 (가는 선, accent) -->
-  <path d="M 30 120 Q 200 70 370 120" fill="none" stroke="#2A6E6A" stroke-width="2" opacity="0.55"/>
-  <path d="M 60 140 Q 200 100 340 140" fill="none" stroke="#2A6E6A" stroke-width="1.5" opacity="0.35"/>
+  <path d="M 30 120 Q 200 70 370 120" fill="none" stroke="#136B78" stroke-width="2" opacity="0.55"/>
+  <path d="M 60 140 Q 200 100 340 140" fill="none" stroke="#136B78" stroke-width="1.5" opacity="0.35"/>
   <!-- 중앙 강조 원(단청 점) -->
-  <circle cx="200" cy="240" r="78" fill="none" stroke="#9E3B2E" stroke-width="3" opacity="0.8"/>
-  <circle cx="200" cy="240" r="60" fill="#E2EBE5" opacity="0.6"/>
+  <circle cx="200" cy="240" r="78" fill="none" stroke="#136B78" stroke-width="3" opacity="0.8"/>
+  <circle cx="200" cy="240" r="60" fill="#D6E6EA" opacity="0.6"/>
   <!-- 이름 라벨 -->
-  <text x="200" y="236" text-anchor="middle" font-family="serif" font-size="56" fill="#9E3B2E">설아</text>
-  <text x="200" y="274" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#2E352F" opacity="0.75">샘플 3</text>
+  <text x="200" y="236" text-anchor="middle" font-family="serif" font-size="56" fill="#136B78">설아</text>
+  <text x="200" y="274" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#223038" opacity="0.75">샘플 3</text>
   <!-- 매듭 문양(gold) -->
   <line x1="200" y1="390" x2="200" y2="430" stroke="#9C7C45" stroke-width="2"/>
   <circle cx="200" cy="430" r="6" fill="none" stroke="#9C7C45" stroke-width="2"/>
   <!-- SAMPLE 워터마크 -->
-  <text x="200" y="466" text-anchor="middle" font-family="sans-serif" font-size="15" letter-spacing="3" fill="#2E352F" opacity="0.5">SAMPLE · 샘플</text>
+  <text x="200" y="466" text-anchor="middle" font-family="sans-serif" font-size="15" letter-spacing="3" fill="#223038" opacity="0.5">SAMPLE · 샘플</text>
 </svg>

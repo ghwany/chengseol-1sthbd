@@ -3,18 +3,18 @@
    임의 변경 금지.
    ===================================================================== */
 :root {
-  /* 색상 (§2 — "옥빛 안뜰" 쿨 톤 재정의. 임의 변경 금지) */
-  --color-bg: #EFF3F0;          /* 푸른기 도는 미색(한지 결 유지, 온도↓) */
-  --color-surface: #E2EBE5;     /* 연옥색 표면 */
+  /* 색상 (§2 — "여름 윤슬" 블루-청록 전환. 임의 변경 금지) */
+  --color-bg: #E4EEF1;          /* 푸른기 분명한 미색(한지 결 유지) */
+  --color-surface: #D6E6EA;     /* 연청록 표면 */
   --color-surface-white: #FFFFFF;
-  --color-text: #2E352F;        /* 먹빛(녹빛 미세 언더톤) 본문/제목 */
-  --color-muted: #515B53;       /* 보조 텍스트 */
-  --color-accent: #2A6E6A;      /* 청자 청 → 청록 — 포인트 */
-  --color-highlight: #9E3B2E;   /* 단청 적 — 강조(이름/날짜). 쿨 바탕 위 의도된 따뜻한 초점 */
-  --color-line: #C4D2C8;        /* 1px 구분선 — 옥빛 hairline */
-  --color-gold: #9C7C45;        /* 매듭·단청 stroke 등 장식 전용 */
+  --color-text: #223038;        /* 청먹빛 본문/제목 */
+  --color-muted: #46606B;       /* 청회색 보조 텍스트 */
+  --color-accent: #136B78;      /* 청록(블루 우세) — 포인트 */
+  --color-highlight: #9C7C45;   /* 금빛 — 강조(이름/날짜). gold와 동일 hex(의도) */
+  --color-line: #BBD3D9;        /* 1px 구분선 — 청록 hairline */
+  --color-gold: #9C7C45;        /* 매듭·단청 stroke 등 장식 전용 (highlight와 동일값) */
 
-  /* 단청 오방색 — 토큰 합성(별도 hex 금지): 청록=accent, 적=highlight, 황=gold */
+  /* 단청 오방색 — 토큰 합성(별도 hex 금지): 청록=accent, 화심=highlight(금빛), 황=gold */
   --color-dancheong-blue: var(--color-accent);
   --color-dancheong-red: var(--color-highlight);
   --color-dancheong-yellow: var(--color-gold);
@@ -25,7 +25,7 @@
   --font-sans: 'Gowun Batang', 'Pretendard Variable', 'Pretendard',
     -apple-system, BlinkMacSystemFont, system-ui, serif; /* 본문/UI */
 
-  --fs-hero-name: 2.5rem;
+  --fs-hero-name: 1.875rem; /* 모바일 가로 한 줄 fit (§4-1). 데스크톱 3.25rem */
   --fs-hero-sub: 1rem;
   --fs-section-title: 1.5rem;
   --fs-body: 1rem;
@@ -67,10 +67,10 @@ body {
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* 한지 결 느낌의 아주 옅은 텍스처(이미지 에셋 없이 그라데이션으로 · 쿨 톤) */
+  /* 한지 결 느낌의 아주 옅은 텍스처(이미지 에셋 없이 그라데이션으로 · 블루-청록 톤) */
   background-image:
     radial-gradient(circle at 20% 10%, rgba(156, 124, 69, 0.04), transparent 60%),  /* gold #9C7C45 */
-    radial-gradient(circle at 80% 90%, rgba(42, 110, 106, 0.03), transparent 55%);   /* accent #2A6E6A */
+    radial-gradient(circle at 80% 90%, rgba(19, 107, 120, 0.03), transparent 55%);   /* accent #136B78 */
   background-attachment: fixed;
 }
 
