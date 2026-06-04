@@ -25,8 +25,8 @@ export const content = {
     // C2: 부제 — 임시 문구(교체 가능). 추측성 사실이 아니므로 둬도 무방.
     subtitle: '쌍둥이 자매의 첫 봄',
     // C1: 대표 사진(둘이 함께). BASE_URL 이 자동 prefix.
-    //  ⚠️ 샘플 — 실제 사진으로 교체. (public/images/hero-sample.svg)
-    heroPhoto: 'images/hero-sample.svg',
+    //  실사진. 원본 title.JPG(4284×5712, 4.9MB)를 웹용 hero.jpg(1200×1600, 464KB)로 리사이즈.
+    heroPhoto: 'images/hero.jpg',
   },
 
   // --- 날짜 (확정) ---
@@ -59,13 +59,13 @@ export const content = {
   gallery: {
     title: '우리 자매',
     // C5/C6: 각 아기 사진 N장 (동수 유지). 경로는 'images/...' 형태.
-    //  ⚠️ 샘플 — 실제 사진으로 교체. 청아=설아 동수(3:3) 유지.
-    cheonga: ['images/cheonga-1-sample.svg', 'images/cheonga-2-sample.svg', 'images/cheonga-3-sample.svg'],
-    seola: ['images/seola-1-sample.svg', 'images/seola-2-sample.svg', 'images/seola-3-sample.svg'],
+    //  실사진 — 청아=설아 동수(2:2). 파일명 대소문자는 디스크와 정확히 일치(.JPG).
+    cheonga: ['images/cheonga_1.JPG', 'images/cheonga_2.JPG'],
+    seola: ['images/seola_1.JPG', 'images/seola_2.JPG'],
     // C7: 함께 사진(선택) — 미제공.
     together: [], // TODO(C7): 둘이 함께 사진(선택)
     // 사진이 아직 없을 때 각 열에 보여줄 플레이스홀더 박스 개수.
-    placeholderPerBaby: 3,
+    placeholderPerBaby: 2,
   },
 
   // --- Date & Place (일시 · 장소) ---
