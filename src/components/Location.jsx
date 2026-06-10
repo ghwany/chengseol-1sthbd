@@ -80,11 +80,9 @@ export default function Location() {
           <p className="slot-note">주소 추후 안내</p>
         )}
 
-        {/* 교통/주차(C13) */}
-        {location.transit ? (
+        {/* 교통/주차(C13) — 미제공 시 노출 안 함 */}
+        {location.transit && (
           <p className="location__transit caption">{location.transit}</p>
-        ) : (
-          <p className="slot-note caption">교통·주차 안내 추후 제공</p>
         )}
       </Reveal>
     </section>

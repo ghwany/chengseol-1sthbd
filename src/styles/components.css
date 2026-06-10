@@ -312,18 +312,12 @@
   color: var(--color-muted);
   background: var(--color-surface);
 }
-/* 외부 지도 링크 박스 — iframe 대체(키 불필요). 한지 톤 위 핀+CTA. */
+/* 카카오맵 길찾기 — 지도 iframe 아래 중앙 정렬 버튼(인라인). */
 .location__map-link {
-  width: 100%;
-  height: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  color: var(--color-accent);
+  margin-top: 0.75rem;
   text-decoration: none;
-  background: var(--color-surface);
 }
 .location__map-cta {
   /* .btn 스타일 상속(터치 타깃 ≥44px). 링크 안 span 이라 pointer-events 통과 */
