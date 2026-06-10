@@ -70,13 +70,40 @@ export const content = {
     title: '오시는 길',
     // C11: 주소 — 확정(오케스트레이터 핸드오프).
     address: '경기 용인시 기흥구 사은로 175 한옥스튜디오',
-    // C12: 지도 임베드 — 구글맵 embed(API 키 불필요). 주소 검색으로 표시.
+    // 장소 좌표(WGS84) — 카카오 장소검색 API로 확인(place id 1470534321, 지곡동 610).
+    // 구글맵 임베드 핀 + 카카오/티맵 길찾기에 사용.
+    lat: 37.25593933,
+    lng: 127.12468598,
+    // C12: 지도 임베드 — 구글맵 embed(API 키 불필요). 좌표 q → 마커(핀) 표시.
     mapEmbedUrl:
-      'https://maps.google.com/maps?q=' +
-      encodeURIComponent('경기 용인시 기흥구 사은로 175 한옥스튜디오') +
-      '&z=16&hl=ko&output=embed',
-    // C12: 외부 지도 링크(키 불필요) — 카카오맵 길찾기. 임베드와 별도로 버튼 유지.
-    mapLinkUrl: 'https://map.kakao.com/?q=' + encodeURIComponent('경기 용인시 기흥구 사은로 175 한옥스튜디오'),
+      'https://maps.google.com/maps?q=37.25593933,127.12468598&z=17&hl=ko&output=embed',
+    // C12: 외부 지도 길찾기(키 불필요). 새 탭/앱으로 열림. 각 앱 브랜드 컬러 버튼.
+    //  · 카카오맵: link/to/{name},{lat},{lng} (웹·앱 모두 동작)
+    //  · 네이버지도: 장소명 검색(POI 매칭) — 웹·앱 모두 동작
+    //  · 티맵: tmap:// 앱 스킴(모바일 앱 전용, PC 미동작)
+    mapNav: [
+      {
+        id: 'kakao',
+        label: '카카오맵',
+        url:
+          'https://map.kakao.com/link/to/' +
+          encodeURIComponent('더우미제스튜디오') +
+          ',37.25593933,127.12468598',
+      },
+      {
+        id: 'naver',
+        label: '네이버지도',
+        url: 'https://map.naver.com/p/search/' + encodeURIComponent('더우미제스튜디오'),
+      },
+      {
+        id: 'tmap',
+        label: '티맵',
+        url:
+          'tmap://route?goalname=' +
+          encodeURIComponent('더우미제스튜디오') +
+          '&goalx=127.12468598&goaly=37.25593933',
+      },
+    ],
     // C13: 교통·주차 안내 — 미제공.
     transit: null, // TODO(C13): 대중교통/주차 안내
   },

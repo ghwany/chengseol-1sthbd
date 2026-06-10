@@ -312,17 +312,32 @@
   color: var(--color-muted);
   background: var(--color-surface);
 }
-/* 카카오맵 길찾기 — 지도 iframe 아래 중앙 정렬 버튼(인라인). */
-.location__map-link {
-  display: flex;
+/* 길찾기 버튼 — 카카오/네이버/티맵. 한 줄에 2개(2열 그리드).
+   3번째(티맵)는 전체 폭으로 의도적 배치(고아 반쪽 버튼 방지). */
+.location__navs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+}
+.location__nav {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 0.75rem;
+  gap: 0.4rem;
+  min-height: 44px; /* 터치 타깃 (스펙 §4 주) */
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  font-size: var(--fs-caption);
+  font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
 }
-.location__map-cta {
-  /* .btn 스타일 상속(터치 타깃 ≥44px). 링크 안 span 이라 pointer-events 통과 */
-  pointer-events: none;
-}
+/* 각 앱 브랜드 컬러 — 텍스트는 대비 ≥4.5:1(AA) 확보한 색으로 선택(스펙 §2).
+   카카오 옐로우/네이버 그린은 흰 글자가 대비 미달 → 검정 글자. */
+.location__nav--kakao { background: #FEE500; color: #191919; } /* 13.8:1 */
+.location__nav--naver { background: #03C75A; color: #191919; } /* 7.8:1  */
+.location__nav--tmap  { background: #0064FF; color: #ffffff; grid-column: 1 / -1; } /* 4.9:1 */
 .location__placename {
   text-align: center;
   font-size: var(--fs-body-lg);

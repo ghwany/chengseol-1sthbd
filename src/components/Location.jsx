@@ -46,19 +46,22 @@ export default function Location() {
           )}
         </div>
 
-        {/* 카카오맵 길찾기(키 불필요 외부 링크) */}
-        {location.mapLinkUrl && (
-          <a
-            className="location__map-link"
-            href={location.mapLinkUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span className="btn btn--accent btn--sm location__map-cta">
-              <PinIcon width={16} height={16} />
-              카카오맵 길찾기
-            </span>
-          </a>
+        {/* 길찾기 — 카카오맵·네이버지도·티맵. 각 앱 브랜드 컬러, 한 줄에 2개씩. */}
+        {location.mapNav?.length > 0 && (
+          <div className="location__navs">
+            {location.mapNav.map((m) => (
+              <a
+                key={m.id}
+                className={`location__nav location__nav--${m.id}`}
+                href={m.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <PinIcon width={16} height={16} />
+                {m.label}
+              </a>
+            ))}
+          </div>
         )}
 
         <p className="location__placename serif">{place.name}</p>
