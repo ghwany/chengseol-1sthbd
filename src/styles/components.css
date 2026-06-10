@@ -279,6 +279,9 @@
 .dateplace__hall {
   color: var(--color-muted);
   font-size: var(--fs-caption);
+  white-space: pre-line;
+  line-height: 1.6;
+  margin-top: 0.5rem;
 }
 .dateplace__cal {
   margin-top: 1.5rem;
