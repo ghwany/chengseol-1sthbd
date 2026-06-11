@@ -25,8 +25,9 @@ export const content = {
     // C2: 부제 — 임시 문구(교체 가능). 추측성 사실이 아니므로 둬도 무방.
     subtitle: '쌍둥이 자매의 첫 봄',
     // C1: 대표 사진(둘이 함께). BASE_URL 이 자동 prefix.
-    //  실사진 title.jpeg. (공유 썸네일 og:image 도 동일 이미지 — index.html)
-    heroPhoto: 'images/title.jpeg',
+    //  실사진 title.png(1086×1448, 3:4). Hero 컨테이너도 3/4 → 잘림 없음.
+    //  (공유 썸네일 og:image 도 동일 이미지 — index.html)
+    heroPhoto: 'images/title.png',
   },
 
   // --- 날짜 (확정) ---
